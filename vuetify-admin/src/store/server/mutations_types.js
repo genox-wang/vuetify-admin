@@ -1,0 +1,2 @@
+export const MUTATION_TMP = 'MUTATION_TMP';
+export const MUTATION_SERVERS = 'MUTATION_SERVERS';

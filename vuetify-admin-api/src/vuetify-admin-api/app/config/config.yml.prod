@@ -1,0 +1,15 @@
+authRequired: true
+
+corsEnable: true
+
+log:
+  # panic fatal error warn info debug
+  logLevel: "warn"
+
+router:
+  # debug release test
+  logMode: "release"
+
+db:
+  mysql: "root:root@tcp(mysql:3306)/db_vuetify_admin?charset=utf8&parseTime=true"
+  showLog: false

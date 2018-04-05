@@ -1,0 +1,22 @@
+repos:
+- original: https://golang.org/x/crypto
+  repo: https://github.com/golang/crypto
+  vcs: git
+- original: https://golang.org/x/image
+  repo: https://github.com/golang/image
+  vcs: git
+- original: https://golang.org/x/mobile
+  repo: https://github.com/golang/mobile
+  vcs: git
+- original: https://golang.org/x/net
+  repo: https://github.com/golang/net
+  vcs: git
+- original: https://golang.org/x/sys
+  repo: https://github.com/golang/sys
+  vcs: git
+- original: https://golang.org/x/text
+  repo: https://github.com/golang/text
+  vcs: git
+- original: https://golang.org/x/tools
+  repo: https://github.com/golang/tools
+  vcs: git
