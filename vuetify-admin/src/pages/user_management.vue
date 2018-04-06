@@ -11,7 +11,6 @@
       <v-flex xs12>
         <v-card>
           <v-card-title>
-            Users Table
             <v-spacer></v-spacer>
             <v-text-field
               append-icon="search"
@@ -25,9 +24,10 @@
             :headers="headers"
             :items="items"
             :search="search"
+            v-model="tmp"
           >
             <template slot="items" slot-scope="props">
-              <td>{{ props.item.id }}</td>
+              <td>{{ props.item.ID }}</td>
               <td>{{ props.item.username }}</td>
               <td>{{ props.item.display_name }}</td>
               <td width="180">
@@ -42,7 +42,8 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <user-create-dialog v-model="create_dialog"/>
+    <user-create-dialog v-model="create_dialog" @server="openServer()"/>
+    <server-create-dialog v-model="server_create_dialog"/>
   </v-container>
 
 </template>
@@ -50,26 +51,39 @@
 <script>
 
 import userCreateDialog from '@/dialogs/user_create_dialog';
+import serverCreateDialog from '@/dialogs/server_create_dialog';
 
 export default {
   components: {
     userCreateDialog,
+    serverCreateDialog,
   },
   data() {
     return {
       create_dialog: false,
+      server_create_dialog: false,
       search: '',
+      tmp: [],
       headers: [
-        { text: 'ID', value: 'id', align: 'left' },
+        { text: 'ID', value: 'ID', align: 'left' },
         { text: 'Username', value: 'user_name', align: 'left' },
         { text: 'DisplayName', value: 'display_name', align: 'left' },
-        { text: 'Action', value: '', align: 'left' },
+        { text: 'Action',
+          value: '',
+          align: 'left',
+        },
       ],
     };
   },
   computed: {
     items() {
       return this.$store.state.user.users;
+    },
+
+  },
+  methods: {
+    openServer() {
+      this.server_create_dialog = true;
     },
   },
   mounted() {

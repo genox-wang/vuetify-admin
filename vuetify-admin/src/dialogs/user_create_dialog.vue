@@ -2,9 +2,6 @@
   <base-dialog
     :value="value"
     @input="updateValue(arguments[0])"
-    title="Create User"
-    okText="create"
-    cancelText="cancel"
     :child="this"
     @ok="create"
 
@@ -34,6 +31,7 @@
             v-model="display_name"
           ></v-text-field>
         </v-flex>
+        <v-btn @click="showServer">Server</v-btn>
       </v-layout>
   </base-dialog>
 </template>
@@ -73,6 +71,9 @@ export default {
       this.username = '';
       this.password = '';
       this.display_name = '';
+    },
+    showServer() {
+      this.$emit('server');
     },
   },
 };

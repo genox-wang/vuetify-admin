@@ -13,4 +13,6 @@ export default {
   themeIsDark: false,
 
   vue: null,
+
+  keyupEvents: [],
 };

@@ -1,3 +1,5 @@
 export default {
   apiBaseURL: 'http://localhost:8000/console',
+  authRequired: true,
+  themeEditable: true,
 };

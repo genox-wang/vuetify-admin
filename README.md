@@ -1,4 +1,4 @@
-# Trans-Trip-Admin
+# Vuetify-Admin
 
 ## Prepare
 

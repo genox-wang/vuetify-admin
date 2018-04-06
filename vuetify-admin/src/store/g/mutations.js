@@ -3,6 +3,26 @@ import store from '@/utils/store';
 import * as types from './mutations_types';
 
 
+const setKeyUp = (events) => {
+  document.onkeyup = (e) => {
+    // 兼容FF和IE和Opera
+    const event = e || window.event;
+    const key = event.which || event.keyCode || event.charCode;
+    if (key === 13) { // enter
+      if (events.enter) {
+        events.enter();
+      }
+    } else if (key === 27) { // esc
+      if (events.esc) {
+        events.esc();
+      }
+    }
+  };
+};
+const removeKeyUp = () => {
+  document.onkeyup = null;
+};
+
 export default {
 
   [types.MUTATION_ALERT_ERROR](state, text) {
@@ -56,4 +76,19 @@ export default {
   [types.MUTATION_G_ATTACH_VUE](state, payload) {
     state.vue = payload;
   },
+
+  [types.MUTATION_G_ADD_KEY_UP](state, payload) {
+    state.keyupEvents.unshift(payload);
+    setKeyUp(payload);
+  },
+
+  [types.MUTATION_G_REMOVE_KEY_UP](state) {
+    state.keyupEvents.shift();
+    if (state.keyupEvents.length > 0) {
+      setKeyUp(state.keyupEvents[0]);
+    } else {
+      removeKeyUp();
+    }
+  },
+
 };

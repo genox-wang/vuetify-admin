@@ -1,4 +1,4 @@
-authRequired: true
+authRequired: false
 
 corsEnable: true
 

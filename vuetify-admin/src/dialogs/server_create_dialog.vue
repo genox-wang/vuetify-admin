@@ -2,11 +2,8 @@
   <base-dialog
     :value="value"
     @input="updateValue(arguments[0])"
-    title="Create Server"
-    okText="Create"
-    cancelText="Cancel"
+    :child="this"
     @ok="create"
-    @showed="showed"
     >
       <v-layout row wrap>
         <v-flex xs12>
@@ -60,7 +57,6 @@ export default {
       this.updateValue(false);
     },
     showed() {
-      this.$nextTick(this.$refs.focus.focus);
       this.name = '';
     },
   },

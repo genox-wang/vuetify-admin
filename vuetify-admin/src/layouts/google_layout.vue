@@ -65,11 +65,11 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
 
-      <theme-dark-swith/>
+      <theme-dark-swith v-if="config.themeEditable"/>
 
-      <theme-color-selection/>
+      <theme-color-selection v-if="config.themeEditable"/>
 
-      <v-btn icon @click.native="doLogout">
+      <v-btn v-if="config.authRequired" icon @click.native="doLogout">
         <v-icon>exit_to_app</v-icon>
       </v-btn>
     </v-toolbar>
@@ -90,6 +90,7 @@
 import themeColorSelection from '@/components/theme_color_selection';
 import themeDarkSwith from '@/components/theme_dark_switch';
 import colors from 'vuetify/es5/util/colors';
+import config from '@/config';
 
 const items = require('../router/nav.json');
 
@@ -102,6 +103,7 @@ export default {
   data: () => ({
     drawer: null,
     items,
+    config,
   }),
 
   computed: {

@@ -10,7 +10,7 @@
         <v-toolbar dark color="primary">
           <v-spacer></v-spacer>
           <v-btn fab small dark color="success" @click.native="okClicked(arguments[0])">
-            <v-icon>save</v-icon>
+            <v-icon>done</v-icon>
           </v-btn>
         </v-toolbar>
         <v-container>
@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import { MUTATION_G_ADD_KEY_UP, MUTATION_G_REMOVE_KEY_UP } from '@/store/g/mutations_types';
+
 export default {
   props: {
     value: false,
@@ -36,19 +38,13 @@ export default {
     },
     setEnterEscKeyUp() {
       const self = this;
-      document.onkeyup = (e) => {
-        // 兼容FF和IE和Opera
-        const event = e || window.event;
-        const key = event.which || event.keyCode || event.charCode;
-        if (key === 13) { // enter
-          self.okClicked();
-        } else if (key === 27) { // esc
-          self.updateValue(false);
-        }
-      };
+      this.$store.commit(MUTATION_G_ADD_KEY_UP, {
+        enter: () => { self.okClicked(); },
+        esc: () => { self.updateValue(false); },
+      });
     },
     removeEnterEscKeyUp() {
-      document.onkeyup = null;
+      this.$store.commit(MUTATION_G_REMOVE_KEY_UP);
     },
   },
   watch: {

@@ -3,6 +3,7 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import axios from '@/utils/axios';
+import config from '@/config';
 import { MUTATION_G_ATTACH_VUE, MUTATION_G_INIT_THEME_COLOR, MUTATION_G_INIT_THEME_IS_DARK } from '@/store/g/mutations_types';
 import lodash from 'lodash';
 import 'material-design-icons/iconfont/material-icons.css';
@@ -18,9 +19,8 @@ Vue.prototype._ = lodash;
 
 Vue.use(Vuetify);
 
-
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(r => r.meta.requireAuth)) { // 判断是否需要认证
+  if (config.authRequired && to.matched.some(r => r.meta.requireAuth)) { // 判断是否需要认证
     if (store.state.user.token) { // 判断是否已经登录
       next();
     } else {
@@ -51,9 +51,9 @@ store.commit(MUTATION_G_INIT_THEME_COLOR);
 store.commit(MUTATION_G_INIT_THEME_IS_DARK);
 
 // axios 拦截请求
-axios.interceptors.request.use((config) => {
-  const c = config;
-  if (store.state.user.token) {
+axios.interceptors.request.use((request) => {
+  const c = request;
+  if (config.authRequired && store.state.user.token) {
     // 存在 token 添加 Authorization 请求头
     c.headers = { Authorization: store.state.user.token };
   }
