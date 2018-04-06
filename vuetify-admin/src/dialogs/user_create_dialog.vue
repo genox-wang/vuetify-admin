@@ -31,7 +31,6 @@
             v-model="display_name"
           ></v-text-field>
         </v-flex>
-        <v-btn @click="showServer">Server</v-btn>
       </v-layout>
   </base-dialog>
 </template>
@@ -71,9 +70,6 @@ export default {
       this.username = '';
       this.password = '';
       this.display_name = '';
-    },
-    showServer() {
-      this.$emit('server');
     },
   },
 };

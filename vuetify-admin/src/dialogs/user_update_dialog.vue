@@ -4,23 +4,23 @@
     @input="updateValue(arguments[0])"
     :child="this"
     @ok="create"
-    >
+
+    @showed="showed">
       <v-layout row wrap>
         <v-flex xs12>
           <v-text-field
-            label="Name"
-            placeholder="server name"
-            v-model="name"
-            @keyup.enter="create"
+            label="Username"
+            placeholder="Username"
+            v-model="username"
             ref="focus"
           ></v-text-field>
         </v-flex>
-        <v-flex xs12>
+          <v-flex xs12>
           <v-text-field
-            label="Token"
-            placeholder="token defined by server"
-            v-model="token"
+            label="DisplayName"
+            placeholder="DisplayName"
             @keyup.enter="create"
+            v-model="display_name"
           ></v-text-field>
         </v-flex>
       </v-layout>
@@ -36,11 +36,12 @@ export default {
   },
   props: {
     value: false,
+    itemData: {},
   },
   data() {
     return {
-      name: '',
-      token: '',
+      username: '',
+      display_name: '',
     };
   },
   methods: {
@@ -48,16 +49,18 @@ export default {
       this.$emit('input', value);
     },
     create() {
-      this.$store.dispatch('create_server', {
-        name: this.name,
-        token: this.token,
+      this.$store.dispatch('update_user', {
+        ID: this.itemData.ID,
+        username: this.username,
+        display_name: this.display_name,
       })
         .catch(() => {
         });
       this.updateValue(false);
     },
     showed() {
-      this.name = '';
+      this.username = this.itemData.username;
+      this.display_name = this.itemData.display_name;
     },
   },
 };

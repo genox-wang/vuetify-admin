@@ -2,6 +2,7 @@ package controller
 
 import (
 	"net/http"
+	"strconv"
 	"vuetify-admin-api/app/middleware"
 	"vuetify-admin-api/app/model"
 
@@ -63,6 +64,61 @@ func UserAllGet(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"msg":   err.Error(),
 			"users": users,
+		})
+	}
+}
+
+// UserUpdatePut update user
+func UserUpdatePost(c *gin.Context) {
+	id, _ := strconv.ParseUint(c.Param("id"), 10, 64)
+
+	if id <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": "id <= 0",
+		})
+		return
+	}
+
+	var user model.User
+	if err := c.BindJSON(&user); err == nil {
+		user.ID = uint(id)
+		if err := user.Update(); err == nil {
+			c.JSON(http.StatusOK, gin.H{
+				"msg": "save user success",
+			})
+		} else {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"msg": err.Error(),
+			})
+		}
+	} else {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": err.Error(),
+		})
+	}
+}
+
+// UserDelete delete user
+func UserDelete(c *gin.Context) {
+	id, _ := strconv.ParseUint(c.Param("id"), 10, 64)
+
+	if id <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": "id <= 0",
+		})
+		return
+	}
+
+	user := &model.User{}
+	user.ID = uint(id)
+
+	if err := user.Delete(); err == nil {
+		c.JSON(http.StatusOK, gin.H{
+			"msg": "soft delete user success",
+		})
+	} else {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": err.Error(),
 		})
 	}
 }

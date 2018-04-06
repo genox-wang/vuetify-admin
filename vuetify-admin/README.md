@@ -45,54 +45,20 @@ npm run build --report
 
 ### Alert
 
-#### Add to Layout
-
-```
-<template>
-  <v-app>
-
-    ....
-
-    <v-snackbar
-      :color="snackbarColor"
-      :value="snackbar"
-      @input="closeSnackbar"
-    >
-      {{ snackbarText }}
-      <v-btn dark flat @click.native="closeSnackbar">x</v-btn>
-    </v-snackbar>
-  </v-app>
-</template>
-
-<script>
-export default {
-  ...
-
-  computed: {
-    snackbar() {
-      return this.$store.state.g.snackbar;
-    },
-    snackbarText() {
-      return this.$store.state.g.snackbarText;
-    },
-    snackbarColor() {
-      return this.$store.state.g.snackbarColor;
-    },
-  },
-
-  methods: {
-    closeSnackbar() {
-      this.$store.dispatch('alert_close');
-    },
-  },
-</script>
-```
-
 #### Use
 ```
-this.$store.dispatch('alert_success', msg);
-this.$store.dispatch('alert_error', msg);
-this.$store.dispatch('alert_warn', msg);
-this.$store.dispatch('alert_close');
+// in components
+this.$alert.success(msg)
+this.$alert.error(msg)
+this.$alert.warn(msg)
+this.$alert.info(msg)
+this.$alert.close(msg)
+
+// global
+Vue.$alert.success(msg)
+Vue.$alert.error(msg)
+Vue.$alert.warn(msg)
+Vue.$alert.info(msg)
+Vue.$alert.close(msg)
 ```
 

@@ -24,20 +24,6 @@
           "component": "user_management",
           "icon": "person",
           "meta": { "requireAuth": true }
-      },
-      {
-        "name": "Server Management",
-        "path": "server/management",
-        "component": "server_management",
-        "icon": "language",
-        "meta": { "requireAuth": true }
-      },
-      {
-        "name": "Channel Management",
-        "path": "channel/management",
-        "component": "channel_management",
-        "icon": "important_devices",
-        "meta": { "requireAuth": true }
       }
     ]
   }

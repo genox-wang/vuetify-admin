@@ -25,26 +25,20 @@ const removeKeyUp = () => {
 
 export default {
 
-  [types.MUTATION_ALERT_ERROR](state, text) {
+  [types.MUTATION_G_SHOW_ALERT](state, payload) {
+    state.snackbars.push(payload);
     state.snackbar = true;
-    state.snackbarText = text;
-    state.snackbarColor = 'error';
   },
 
-  [types.MUTATION_ALERT_WARN](state, text) {
-    state.snackbar = true;
-    state.snackbarText = text;
-    state.snackbarColor = 'warn';
-  },
-
-  [types.MUTATION_ALERT_SUCCESS](state, text) {
-    state.snackbar = true;
-    state.snackbarText = text;
-    state.snackbarColor = 'success';
-  },
-
-  [types.MUTATION_ALERT_CLOSE](state) {
+  [types.MUTATION_G_CLOSE_ALERT](state) {
+    state.snackbars.shift();
     state.snackbar = false;
+  },
+
+  [types.MUTATION_G_SHOW_NEXT_ALERT](state) {
+    if (state.snackbars.length > 0) {
+      state.snackbar = true;
+    }
   },
 
   [types.MUTATION_G_UPDATE_THEME_COLOR](state, payload) {

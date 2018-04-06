@@ -31,8 +31,24 @@
               <td>{{ props.item.username }}</td>
               <td>{{ props.item.display_name }}</td>
               <td width="180">
-                <v-btn small fab dark color="cyan"><v-icon>edit</v-icon></v-btn>
-                <v-btn small fab dark color="pink"><v-icon>delete</v-icon></v-btn>
+                <v-btn
+                  small
+                  fab
+                  dark
+                  color="cyan"
+                  @click.native.stop="doEdit(props.item)"
+                >
+                  <v-icon>edit</v-icon>
+                </v-btn>
+                <v-btn
+                  small
+                  fab
+                  dark
+                  color="pink"
+                  @click.native.stop="doDelete(props.item)"
+                >
+                  <v-icon>delete</v-icon>
+                </v-btn>
               </td>
             </template>
             <v-alert slot="no-results" :value="true" color="error" icon="warning">
@@ -42,8 +58,14 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <user-create-dialog v-model="create_dialog" @server="openServer()"/>
-    <server-create-dialog v-model="server_create_dialog"/>
+    <user-create-dialog v-model="createDialog"/>
+    <user-update-dialog v-model="updateDialog" :itemData="selectedItemData"/>
+    <delete-line-dialog
+      v-model="deleteDialog"
+      title="Delete Channel"
+      content="sure to delete this line?"
+      @delete="onDelete"
+    />
   </v-container>
 
 </template>
@@ -51,27 +73,28 @@
 <script>
 
 import userCreateDialog from '@/dialogs/user_create_dialog';
-import serverCreateDialog from '@/dialogs/server_create_dialog';
+import userUpdateDialog from '@/dialogs/user_update_dialog';
+import deleteLineDialog from '@/dialogs/delete_line_dialog';
 
 export default {
   components: {
     userCreateDialog,
-    serverCreateDialog,
+    userUpdateDialog,
+    deleteLineDialog,
   },
   data() {
     return {
-      create_dialog: false,
-      server_create_dialog: false,
+      createDialog: false,
+      updateDialog: false,
+      deleteDialog: false,
+      selectedItemData: {},
       search: '',
       tmp: [],
       headers: [
         { text: 'ID', value: 'ID', align: 'left' },
         { text: 'Username', value: 'user_name', align: 'left' },
         { text: 'DisplayName', value: 'display_name', align: 'left' },
-        { text: 'Action',
-          value: '',
-          align: 'left',
-        },
+        { text: 'Action', value: '', align: 'left' },
       ],
     };
   },
@@ -81,11 +104,23 @@ export default {
     },
 
   },
+
   methods: {
-    openServer() {
-      this.server_create_dialog = true;
+    doEdit(itemData) {
+      this.updateDialog = true;
+      this.selectedItemData = itemData;
+    },
+    doDelete(itemData) {
+      this.deleteDialog = true;
+      this.selectedItemData = itemData;
+    },
+    onDelete() {
+      this.$store.dispatch('delete_user', this.selectedItemData.ID)
+        .catch(() => {
+        });
     },
   },
+
   mounted() {
     this.$store.dispatch('get_all_users').catch(() => {});
   },

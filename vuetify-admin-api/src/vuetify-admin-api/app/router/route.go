@@ -21,20 +21,7 @@ func route() {
 	{
 		authorized.POST("/user/", controller.UserCreatePost)
 		authorized.GET("/user/all", controller.UserAllGet)
-
-		authorized.GET("/channel/all", controller.ChannelAllGet)
-		authorized.POST("/channel/", controller.ChannelCreatePost)
-		authorized.PUT("/channel/:id", controller.ChannelUpdatePut)
-		authorized.DELETE("/channel/:id", controller.ChannelDelete)
-
-		authorized.GET("/server/all", controller.ServerAllGet)
-		authorized.POST("/server/", controller.ServerCreatePost)
-		authorized.PUT("/server/:id", controller.ServerUpdatePut)
-		authorized.DELETE("/server/:id", controller.ServerDelete)
-	}
-
-	api := router.Group("/api")
-	{
-		api.GET("/channel/:token", controller.ChannelGetByToken)
+		authorized.POST("/user/:id", controller.UserUpdatePost)
+		authorized.DELETE("/user/:id", controller.UserDelete)
 	}
 }

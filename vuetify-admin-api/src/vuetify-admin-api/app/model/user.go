@@ -44,3 +44,13 @@ func (u *User) CrptoPassword(password string) string {
 	io.WriteString(b, password)
 	return fmt.Sprintf("%x", b.Sum(nil))
 }
+
+//Update save user
+func (u *User) Update() error {
+	return DB.Model(u).Update(u).Error
+}
+
+// Delete delete user
+func (u *User) Delete() error {
+	return DB.Delete(u).Error
+}

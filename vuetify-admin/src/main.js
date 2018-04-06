@@ -4,6 +4,7 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 import axios from '@/utils/axios';
 import config from '@/config';
+import alert from '@/components/alert';
 import { MUTATION_G_ATTACH_VUE, MUTATION_G_INIT_THEME_COLOR, MUTATION_G_INIT_THEME_IS_DARK } from '@/store/g/mutations_types';
 import lodash from 'lodash';
 import 'material-design-icons/iconfont/material-icons.css';
@@ -13,9 +14,13 @@ import router from './router';
 import store from './store';
 
 
+alert.use(store);
+
 Vue.config.productionTip = false;
 Vue.prototype.$http = axios;
 Vue.prototype._ = lodash;
+Vue.prototype.$alert = alert;
+
 
 Vue.use(Vuetify);
 
@@ -64,15 +69,15 @@ error => Promise.reject(error));
 // axios 拦截响应
 axios.interceptors.response.use((response) => {
   if (response.data.msg) {
-    store.dispatch('alert_success', response.data.msg);
+    alert.success(response.data.msg);
   }
   return response;
 },
 (error) => {
   if (error.response) {
-    store.dispatch('alert_error', `${error.response.status}:${error.response.data.msg}`);
+    alert.error(`${error.response.status}:${error.response.data.msg}`);
   } else {
-    store.dispatch('alert_error', error.message);
+    alert.error(error.message);
   }
 
   if (error.response) {

@@ -1,2 +1,0 @@
-export const MUTATION_TMP = 'MUTATION_TMP';
-export const MUTATION_CHANNELS = 'MUTATION_CHANNELS';

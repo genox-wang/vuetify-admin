@@ -43,4 +43,20 @@ export default {
       dispatch('get_all_users');
       return resp;
     }),
+
+  update_user: ({
+    dispatch,
+  }, user) => axios.post(`/user/${user.ID}`, user)
+    .then((resp) => {
+      dispatch('get_all_users');
+      return resp;
+    }),
+
+  delete_user: ({
+    dispatch,
+  }, userId) => axios.delete(`/user/${userId}`)
+    .then((resp) => {
+      dispatch('get_all_users');
+      return resp;
+    }),
 };

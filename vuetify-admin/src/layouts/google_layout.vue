@@ -76,19 +76,13 @@
     <v-content>
       <router-view></router-view>
     </v-content>
-    <v-snackbar
-      :color="snackbarColor"
-      :value="snackbar"
-      @input="closeSnackbar"
-    >
-      {{ snackbarText }}
-      <v-btn dark flat @click.native="closeSnackbar">x</v-btn>
-    </v-snackbar>
+    <base-alert/>
   </v-app>
 </template>
 <script>
 import themeColorSelection from '@/components/theme_color_selection';
 import themeDarkSwith from '@/components/theme_dark_switch';
+import baseAlert from '@/components/base_alert';
 import colors from 'vuetify/es5/util/colors';
 import config from '@/config';
 
@@ -98,6 +92,7 @@ export default {
   components: {
     themeColorSelection,
     themeDarkSwith,
+    baseAlert,
   },
 
   data: () => ({
@@ -107,15 +102,6 @@ export default {
   }),
 
   computed: {
-    snackbar() {
-      return this.$store.state.g.snackbar;
-    },
-    snackbarText() {
-      return this.$store.state.g.snackbarText;
-    },
-    snackbarColor() {
-      return this.$store.state.g.snackbarColor;
-    },
     themeIsDark() {
       return this.$store.state.g.themeIsDark;
     },
@@ -156,9 +142,6 @@ export default {
           return item;
         });
       }
-    },
-    closeSnackbar() {
-      this.$store.dispatch('alert_close');
     },
   },
 

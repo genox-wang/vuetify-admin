@@ -51,13 +51,15 @@ export default {
     value(cur) {
       if (cur) {
         this.setEnterEscKeyUp();
-        const child = this.child;
+        if (this.child) {
+          const child = this.child;
 
-        this.$nextTick(() => {
-          if (child.$refs.focus) {
-            child.$refs.focus.focus();
-          }
-        });
+          this.$nextTick(() => {
+            if (child.$refs.focus) {
+              child.$refs.focus.focus();
+            }
+          });
+        }
         this.$emit('showed');
       } else {
         this.removeEnterEscKeyUp();

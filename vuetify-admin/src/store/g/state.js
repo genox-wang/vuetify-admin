@@ -1,8 +1,7 @@
 export default {
   // snackbar Settings
   snackbar: false,
-  snackbarText: '',
-  snackbarColor: '',
+  snackbars: [],
 
   // theme color config
   themeColor: {
