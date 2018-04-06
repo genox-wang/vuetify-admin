@@ -3,7 +3,7 @@
     <v-layout row wrap>
       <v-flex xs12>
         <v-card>
-          <v-btn color="success" @click="create_dialog = true">Create</v-btn>
+          <v-btn color="success" @click="createDialog = true">Create</v-btn>
         </v-card>
       </v-flex>
     </v-layout>

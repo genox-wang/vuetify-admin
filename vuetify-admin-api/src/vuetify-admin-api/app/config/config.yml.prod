@@ -11,5 +11,5 @@ router:
   logMode: "release"
 
 db:
-  mysql: "root:root@tcp(mysql:3306)/db_vuetify_admin?charset=utf8&parseTime=true"
+  mysql: "root:root@tcp(vuetify-admin-mysql:3306)/db_vuetify_admin?charset=utf8&parseTime=true"
   showLog: false

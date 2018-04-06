@@ -4,7 +4,7 @@ services:
   mysql:
     build:
       context: mariadb/
-    container_name: vuetify_admin_mysql
+    container_name: vuetify-admin-mysql
     volumes:
       - mysqldata:/var/lib/mysql
       - mysqllog:/var/log/mysql
@@ -15,7 +15,7 @@ services:
       - net
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: db_vuefity_admin
+      MYSQL_DATABASE: db_vuetify_admin
     restart: always
 
   vuetify-admin:
@@ -23,7 +23,7 @@ services:
       context:  vuetify-admin/
     container_name: vuetify-admin
     ports:
-      - "8001:80"
+      - "8331:80"
     volumes:
       - ./vuetify-admin/dist:/usr/share/nginx/html
       - ./vuetify-admin/nginx/conf.d:/etc/nginx/conf.d
@@ -41,7 +41,7 @@ services:
       - ./vuetify-admin-api/src/vuetify-admin-api/app/config/config.yml.prod:/app/app/config/config.yml:ro
       - /usr/local/go/lib/time/zoneinfo.zip:/usr/local/go/lib/time/zoneinfo.zip:ro
     ports:
-      - "8002:8000"
+      - "8332:8000"
     networks:
       - net
     restart: always
