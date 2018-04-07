@@ -19,7 +19,6 @@
           <v-text-field
             label="Password"
             placeholder="Password"
-            @keyup.enter="create"
             v-model="password"
           ></v-text-field>
         </v-flex>
@@ -27,7 +26,6 @@
           <v-text-field
             label="DisplayName"
             placeholder="DisplayName"
-            @keyup.enter="create"
             v-model="display_name"
           ></v-text-field>
         </v-flex>

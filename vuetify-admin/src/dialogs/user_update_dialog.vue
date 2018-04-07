@@ -3,7 +3,7 @@
     :value="value"
     @input="updateValue(arguments[0])"
     :child="this"
-    @ok="create"
+    @ok="update"
 
     @showed="showed">
       <v-layout row wrap>
@@ -19,7 +19,6 @@
           <v-text-field
             label="DisplayName"
             placeholder="DisplayName"
-            @keyup.enter="create"
             v-model="display_name"
           ></v-text-field>
         </v-flex>
@@ -48,7 +47,7 @@ export default {
     updateValue(value) {
       this.$emit('input', value);
     },
-    create() {
+    update() {
       this.$store.dispatch('update_user', {
         ID: this.itemData.ID,
         username: this.username,
